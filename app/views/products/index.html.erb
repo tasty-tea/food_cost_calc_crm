@@ -1,0 +1,38 @@
+<div class="container">
+<p>
+	<h2><strong><%= t('.products_list') %></strong></h2>
+</p>
+
+<p>
+  	<strong><%= t('model.product.many') %>:</strong>
+  	<% if @products.nil? %>
+  		<%= t('list_is_empty') %>
+  	<% else %>
+  		<table class="table">
+        <thread>
+    		  <tr>
+            <td width="100px"><%= t('id') %></td>
+            <td width="200px"><%= t('name') %></td>
+            <td width="100px"><%= t('edit') %></td>
+            <td><%= t('destroy') %></td>
+          </tr>
+      </thread>
+        <tbody>
+          <% @products.each do |product| %>
+            <tr>
+              <td><%= product.id %></td>
+              <td><%= link_to "#{product.name}", product_path(product) %></td>
+              <td><%= button_to t('edit'), edit_product_path(product), :method => :get %></td>
+              <td><%= button_to t('delete'), product_path(product), :method => :delete %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+  <% end %>
+</p>
+
+<div>
+  <%= link_to t('new'), new_product_path() %> </br>
+  <%= link_to t('back'), root_path() %>
+</div>
+</div>

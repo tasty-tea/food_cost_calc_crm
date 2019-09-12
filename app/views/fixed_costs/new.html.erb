@@ -1,0 +1,11 @@
+new
+<%= form_with(model: @product, local: true) do |f| %>
+  <%= text_field_tag 'product[name]', t('.name') %>
+  <%= text_field_tag 'product[cost]', t('.cost') %>
+  <%= text_field_tag 'product[estimated_sold]', t('.estimated_sold')%>
+  <%= select_tag 'product[ingredients][id]', options_from_collection_for_select(@stock_units, 'id', 'name') %>
+  Amount: <%= f.text_field('product[ingredients][amount]') %>
+  <%= f.submit %>
+<% end %>
+
+<%= @stock_units %>

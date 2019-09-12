@@ -1,0 +1,5 @@
+<%= form_with url: product_ingredients_path(@product), scope: 'ingredient' do |f| %>
+  <%= f.collection_select(:stock_unit_id, StockUnit.all, :id, :name, :prompt => 'Select') %>
+  <%= f.text_field :amount %> 
+  <%= submit_tag t('create') %>
+<% end %>

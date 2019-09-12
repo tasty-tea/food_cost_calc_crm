@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-sm-6">
+    <%= render 'table_product' %>
+  </div>
+  <div class="col-sm-6">  
+    <%= render 'table_ingredients' %>
+    <%= render 'form_ingredients' %>
+  </div>
+</div>
+<%= link_to t('edit'), edit_product_path(@product) %> </br>
+<%= link_to t('back'), products_path() %>

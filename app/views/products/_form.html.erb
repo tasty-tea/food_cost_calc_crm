@@ -1,0 +1,30 @@
+<%= form_for @product do |f| %>
+	<table class="table">
+      <thread>
+      	<h1><%= t('.new_product') %><h2>
+      </thread>
+      <tbody>
+      	<tr>
+          <td width="100px"><%= t('.name') %></td>
+          <td><%= text_field_tag 'product[name]', @product.name || t('.name') %></td>   
+        </tr>
+        <tr>
+        	<td><%= t('.cost') %></td>
+        	<td><%= text_field_tag 'product[cost]', @product.cost || t('.cost') %></td>
+        </tr>
+        <tr>
+        	<td><%= t('.estimated_sold') %></td>
+        	<td><%= text_field_tag 'product[estimated_sold]', @product.estimated_sold || t('.estimated_sold')%></td>
+        </tr>
+        <tr>
+          <td><%= t('.servings') %></td>
+          <td><%= text_field_tag 'product[servings]', @product.servings || t('.servings')%></td>
+        </tr>
+        <tr>
+          <td><%= t('.is_unit_economics') %></td>
+          <td><%= check_box_tag 'product[is_unit_economics]', @product.is_unit_economics || 0 %></td>
+        </tr>
+      </tbody>
+    </table>
+  <%= f.submit %>
+<% end %>

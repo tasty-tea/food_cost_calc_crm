@@ -1,0 +1,33 @@
+<p>
+	<strong>Постоянные затраты:</strong>
+</p>
+
+<p>
+	<strong>Затраты:</strong>
+	<% if @fixed_costs.nil? %>
+		Список пуст.
+	<% else %>
+		<table>
+      <thread>
+  		  <tr>
+          <td width="100px">id</td>
+          <td>name</td>
+          <td>cost</td>
+          <td>frequency</td>
+        </tr>
+    </thread>
+      <tbody>
+        <% @fixed_costs.each do |fixed_cost| %>
+          <tr>
+            <td><%= fixed_cost.id %></td>
+            <td><%= fixed_cost.name %></td>
+            <td><%= fixed_cost.cost %></td>
+            <td><%= fixed_cost.frequency %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</p>
+
+<%= link_to 'Back', root_path() %>

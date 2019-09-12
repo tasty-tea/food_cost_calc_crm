@@ -1,0 +1,23 @@
+<h2><strong><%= t('model.ingredient.many') %>:</strong></h2>
+<% if !@product.ingredients %>
+	<%= t('list_is_empty') %>
+<% else %>
+	<table class="table">
+    <thread>
+		  <tr>
+        <td width="100px"><%= t('name') %></td>
+        <td width="300px"><%= t('amount') %></td>
+        <td>Delete</td>
+      </tr>
+  </thread>
+    <tbody>
+      <% @product.list_ingredients.each do |ingredient| %>
+        <tr>
+          <td><%= link_to "#{ingredient[:name]}", stock_unit_path(ingredient[:stock_unit_id]) %></td>
+          <td><%= render :partial => "form_ingredients_edit", :locals => {:ingredient => ingredient} %></td>
+          <td><%= button_to t('delete'), product_ingredient_path(@product, ingredient[:id]), :method => :delete %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

@@ -1,0 +1,33 @@
+<p>
+	<strong>Склад ингредиентов:</strong>
+</p>
+
+<p>
+	<strong>Складские единицы:</strong>
+	<% if @stock_units.nil? %>
+		Список пуст.
+	<% else %>
+		<table>
+      <thread>
+  		  <tr>
+          <td width="100px">id</td>
+          <td>name</td>
+          <td>amount</td>
+          <td>cost</td>
+        </tr>
+    </thread>
+      <tbody>
+        <% @stock_units.each do |unit| %>
+          <tr>
+            <td><%= unit.id %></td>
+            <td><%= unit.name %></td>
+            <td><%= unit.amount %></td>
+            <td><%= unit.cost %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</p>
+
+<%= link_to 'Back', root_path() %>

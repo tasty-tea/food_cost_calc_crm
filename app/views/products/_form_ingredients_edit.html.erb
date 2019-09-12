@@ -1,0 +1,5 @@
+<%= form_with url: product_ingredient_path(@product), scope: 'ingredient', method: :put do |f| %>
+	<%= text_field_tag 'ingredient[amount]', ingredient[:amount] || t('.amount') %>
+	<%= hidden_field_tag :product_id, @product.id %>
+  <%= submit_tag "Update" %>
+<% end %>
