@@ -39,6 +39,7 @@ en:
   back: Back
   create: Create
   list_is_empty: List is empty
+  ensure_action: Are you sure?
   home:
     index:
       welcome: Hello and welcome on project!
@@ -56,6 +57,10 @@ en:
     create:
       success: Ingredient created!
       failure: Failed to create ingredient!
+  stock_units:
+    form:
+      new_stock_unit: New stock unit
+      name: Name
   model:
     fixed_cost:
       one: Fixed Cost

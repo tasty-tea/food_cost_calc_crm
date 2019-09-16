@@ -1,1 +1,7 @@
-id: <%= @stock_unit.id %>
+<div class="row">
+  <div class="col-sm-12">
+    <%= render 'table_stock_unit' %>
+  </div>
+</div>
+<%= link_to t('edit'), edit_stock_unit_path(@stock_unit) %> </br>
+<%= link_to t('back'), stock_units_path() %>

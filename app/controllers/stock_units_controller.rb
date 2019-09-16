@@ -16,12 +16,12 @@ class StockUnitsController < ApplicationController
   def edit; end
 
   def create
-    @stock_unit = StockUnit.new
+    @stock_unit = StockUnit.new(stock_unit_params)
 
     if @stock_unit.save
       redirect_to @stock_unit, notice: 'Stock unit wasa successfully creaeted'
     else
-      render :new
+      render :new, alert: t('.failure')
     end
   end
 
@@ -29,7 +29,7 @@ class StockUnitsController < ApplicationController
     if @stock_unit.update(stock_unit_params)
       redirect_to @stock_unit, notice: 'Stock unit was successfully updated'
     else
-      render :edit
+      render :edit, alert: t('.failure')
     end
   end
 
@@ -45,6 +45,6 @@ class StockUnitsController < ApplicationController
   end
 
   def stock_unit_params
-    params.require(:stock_unit).permit(:name, :amount)
+    params.require(:stock_unit).permit(:name, :amount, :rejected, :cost, :measure_units)
   end
 end

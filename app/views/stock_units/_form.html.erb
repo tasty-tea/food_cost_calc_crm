@@ -1,0 +1,30 @@
+<%= form_for @stock_unit do |f| %>
+	<table class="table">
+      <thread>
+      	<h1><%= t('.new_stock_unit') %><h2>
+      </thread>
+      <tbody>
+      	<tr>
+          <td width="100px"><%= t('.name') %></td>
+          <td><%= text_field_tag 'stock_unit[name]', @stock_unit.name || t('.name') %></td>   
+        </tr>
+        <tr>
+        	<td><%= t('.cost') %></td>
+        	<td><%= text_field_tag 'stock_unit[cost]', @stock_unit.cost || t('.cost') %></td>
+        </tr>
+        <tr>
+        	<td><%= t('.amount') %></td>
+        	<td><%= text_field_tag 'stock_unit[amount]', @stock_unit.amount || t('.amount')%></td>
+        </tr>
+        <tr>
+          <td><%= t('.rejected') %></td>
+          <td><%= text_field_tag 'stock_unit[rejected]', @stock_unit.rejected || t('.rejected')%></td>
+        </tr>
+        <tr>
+          <td><%= t('.measure_units') %></td>
+          <td><%= text_field_tag 'stock_unit[measure_units]', @stock_unit.measure_units || t('.measure_units')%> </td>
+        </tr>
+      </tbody>
+    </table>
+  <%= f.submit %>
+<% end %>
