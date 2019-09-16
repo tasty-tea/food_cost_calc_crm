@@ -21,23 +21,23 @@ class ProductsController < ApplicationController
     @product.ingredients.build(product_params[:ingredients]) if product_params[:ingredients]
 
     if @product.save
-      redirect_to @product
+      redirect_to @product, notice: t('.success')
     else
-      render :new
+      render :new, alert: t('.failure')
     end
   end
 
   def update
     if @product.update(product_params)
-      redirect_to @product
+      redirect_to @product, notice: t('.success')
     else
-      render :edit
+      render :edit, alert: t('.failure')
     end
   end
 
   def destroy
     @product.destroy
-    redirect_to products_path
+    redirect_to products_path, alert: t('.success')
   end
 
   private

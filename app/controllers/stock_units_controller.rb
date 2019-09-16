@@ -19,7 +19,7 @@ class StockUnitsController < ApplicationController
     @stock_unit = StockUnit.new(stock_unit_params)
 
     if @stock_unit.save
-      redirect_to @stock_unit, notice: 'Stock unit wasa successfully creaeted'
+      redirect_to @stock_unit, notice: t('.success')
     else
       render :new, alert: t('.failure')
     end
@@ -27,7 +27,7 @@ class StockUnitsController < ApplicationController
 
   def update
     if @stock_unit.update(stock_unit_params)
-      redirect_to @stock_unit, notice: 'Stock unit was successfully updated'
+      redirect_to @stock_unit, notice: t('.success')
     else
       render :edit, alert: t('.failure')
     end
@@ -35,7 +35,7 @@ class StockUnitsController < ApplicationController
 
   def destroy
     @stock_unit.destroy
-    redirect_to stock_units_path, notice: 'Stock unit was successfully destroyed'
+    redirect_to stock_units_path, notice: t('.success')
   end
 
   private
