@@ -16,20 +16,20 @@ class FixedCostsController < ApplicationController
   def edit; end
 
   def create
-    @fixed_cost = FixedCost.new
+    @fixed_cost = FixedCost.new(fixed_cost_params)
 
     if @fixed_cost.save
-      redirect_to @fixed_cost
+      redirect_to @fixed_cost, notice: t('.success')
     else
-      render :new
+      render :new, alert: t('.failure')
     end
   end
 
   def update
     if @fixed_cost.update(fixed_cost_params)
-      redirect_to @fixed_cost
+      redirect_to @fixed_cost, notice: t('.success')
     else
-      render :edit
+      render :edit, alert: t('.failure')
     end
   end
 
@@ -45,6 +45,6 @@ class FixedCostsController < ApplicationController
   end
 
   def fixed_cost_params
-    params.require(:fixed_cost).permit(:number)
+    params.require(:fixed_cost).permit(:name, :cost, :frequency, :date_started, :date_finished)
   end
 end

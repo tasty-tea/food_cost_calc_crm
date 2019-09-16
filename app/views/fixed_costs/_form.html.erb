@@ -1,0 +1,30 @@
+<%= form_for @fixed_cost do |f| %>
+	<table class="table">
+      <thread>
+      	<h1><%= t('.new_fixed_cost') %><h2>
+      </thread>
+      <tbody>
+      	<tr>
+          <td width="100px"><%= t('.name') %></td>
+          <td><%= text_field_tag 'fixed_cost[name]', @fixed_cost.name || t('name') %></td>   
+        </tr>
+        <tr>
+        	<td><%= t('.cost') %></td>
+        	<td><%= text_field_tag 'fixed_cost[cost]', @fixed_cost.cost || t('.cost') %></td>
+        </tr>
+        <tr>
+        	<td><%= t('.frequency') %></td>
+        	<td><%= text_field_tag 'fixed_cost[frequency]', @fixed_cost.frequency || t('.frequency')%></td>
+        </tr>
+        <tr>
+          <td><%= t('.date_started') %></td>
+          <td><%= f.date_select :date_started %></td>
+        </tr>
+        <tr>
+          <td><%= t('.date_finished') %></td>
+          <td><%= f.date_select :date_finished %> </td>
+        </tr>
+      </tbody>
+    </table>
+  <%= f.submit %>
+<% end %>

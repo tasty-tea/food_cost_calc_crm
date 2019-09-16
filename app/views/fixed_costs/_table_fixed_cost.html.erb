@@ -1,0 +1,27 @@
+<table class="table">
+  <thread>
+    <h1><%= t('.fixed_cost')%>:<h2>
+  </thread>
+  <tbody>
+    <tr>
+      <td width="100px"><%= t('.name') %></td>
+      <td><%= @fixed_cost.name %>  </td>   
+    </tr>
+    <tr>
+      <td><%= t('.cost') %></td>
+      <td><%= @fixed_cost.cost %>  </td>
+    </tr>
+    <tr>
+      <td><%= t('.frequency') %></td>
+      <td><%= @fixed_cost.frequency %>  </td>
+    </tr>
+    <tr>
+      <td><%= t('.date_started') %></td>
+      <td><%= @fixed_cost.date_started %>  </td>
+    </tr>
+    <tr>
+      <td><%= t('.date_finished') %></td>
+      <td><%= @fixed_cost.date_finished %>  </td>
+    </tr>
+  </tbody>
+</table>

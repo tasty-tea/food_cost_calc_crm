@@ -1,33 +1,38 @@
-<p>
-	<strong>Постоянные затраты:</strong>
-</p>
+<div class="container">
+  <p>
+    <h2><strong><%= t('.fixed_costs_list') %></strong></h2>
+  </p>
 
-<p>
-	<strong>Затраты:</strong>
-	<% if @fixed_costs.nil? %>
-		Список пуст.
-	<% else %>
-		<table>
-      <thread>
-  		  <tr>
-          <td width="100px">id</td>
-          <td>name</td>
-          <td>cost</td>
-          <td>frequency</td>
-        </tr>
-    </thread>
-      <tbody>
-        <% @fixed_costs.each do |fixed_cost| %>
-          <tr>
-            <td><%= fixed_cost.id %></td>
-            <td><%= fixed_cost.name %></td>
-            <td><%= fixed_cost.cost %></td>
-            <td><%= fixed_cost.frequency %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
-</p>
+  <p>
+      <strong><%= t('model.fixed_cost.many') %>:</strong>
+      <% if @fixed_costs.nil? %>
+        <%= t('list_is_empty') %>
+      <% else %>
+        <table class="table">
+          <thread>
+            <tr>
+              <td width="100px"><%= t('id') %></td>
+              <td width="200px"><%= t('name') %></td>
+              <td width="100px"><%= t('edit') %></td>
+              <td><%= t('destroy') %></td>
+            </tr>
+        </thread>
+          <tbody>
+            <% @fixed_costs.each do |fixed_cost| %>
+              <tr>
+                <td><%= fixed_cost.id %></td>
+                <td><%= link_to "#{fixed_cost.name}", fixed_cost_path(fixed_cost) %></td>
+                <td><%= button_to t('edit'), edit_fixed_cost_path(fixed_cost), :method => :get %></td>
+                <td><%= button_to t('delete'), fixed_cost_path(fixed_cost), :method => :delete, data: {confirm: t('ensure_action')} %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+    <% end %>
+  </p>
 
-<%= link_to 'Back', root_path() %>
+  <div>
+    <%= link_to t('new'), new_fixed_cost_path() %> </br>
+    <%= link_to t('back'), root_path() %>
+  </div>
+</div>
