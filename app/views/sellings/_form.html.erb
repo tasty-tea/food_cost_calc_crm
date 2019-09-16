@@ -1,0 +1,6 @@
+<%= form_for @selling do |f| %>
+  <%= f.collection_select(:product_id, Product.all, :id, :name, :prompt => 'Select') %>
+  <%= f.text_field :amount %> 
+  Is brake? <%= f.check_box :brake %>
+  <%= submit_tag t('create') %>
+<% end %>
