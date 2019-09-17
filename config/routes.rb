@@ -3,7 +3,11 @@
 Rails.application.routes.draw do
   root 'home#index'
   resources :fixed_costs
-  resources :sellings
+  resources :sellings do
+    collection do
+      post 'search'
+    end
+  end
   resources :stock_units
   resources :products do
     resources :ingredients

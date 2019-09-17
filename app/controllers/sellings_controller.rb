@@ -5,7 +5,17 @@ class SellingsController < ApplicationController
   before_action :set_product, only: %i[show]
 
   def index
-    @sellings = Selling.all
+      @sellings = Selling.all
+  end
+
+  def search
+    date_selected = Date.parse(params[:date_selected])
+    if date_selected
+      @sellings = Selling.where_date(date_selected)
+    else      
+      @sellings = Selling.all
+    end
+    render 'search'
   end
 
   def show; end

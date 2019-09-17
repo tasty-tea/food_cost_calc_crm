@@ -1,40 +1,29 @@
+<script>
+  $(document).on("focus", "[data-behaviour~='datepicker']", function(e){
+    $(this).datepicker({"format": "yyyy-mm-dd", "weekStart": 1, "autoclose": true})
+  });
+</script>
+
+
 <div class="container">
 <p>
 	<h2><strong><%= t('.selling_list') %></strong></h2>
 </p>
 
+
+<%= form_with url: search_sellings_path(), remote: 'true' do |f|%>
+  <%= text_field_tag "date_selected", Date.yesterday.to_s, 'data-behaviour' => 'datepicker' %>
+  <%= submit_tag t('search') %>
+<% end %>
+
+
 <p>
-  	<strong><%= t('model.selling.many') %>:</strong>
-  	<% if @sellings.nil? %>
-  		<%= t('list_is_empty') %>
-  	<% else %>
-  		<table class="table">
-        <thread>
-    		  <tr>
-            <td width="100px"><%= t('id') %></td>
-            <td width="200px"><%= t('name') %></td>
-            <td width="100px"><%= Date %></td>
-            <td width="100px"><%= t('cost') %></td>
-            <td width="100px"><%= t('edit') %></td>
-            <td><%= t('destroy') %></td>
-          </tr>
-      </thread>
-        <tbody>
-          <% @sellings.each do |selling| %>
-            <tr>
-              <td><%= selling.id %></td>
-              <td><%= link_to "#{selling.product.name}", selling_path(selling) %></td>
-              <td><%= selling.created_at.to_s[0..9] %></td>
-              <td><%= selling.product.cost * selling.amount %></td>
-              <td><%= button_to t('edit'), edit_selling_path(selling), :method => :get %></td>
-              <td><%= button_to t('delete'), selling_path(selling), :method => :delete,
-                                                                    data: {confirm: t('ensure_action')} %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-  <% end %>
+	<strong><%= t('model.selling.many') %>:</strong>
+  <div id="class-table">
+    <%= render partial: "search_partial" %> 
+  </div>
 </p>
+
 
 <div>
   <%= link_to t('new'), new_selling_path() %> </br>
