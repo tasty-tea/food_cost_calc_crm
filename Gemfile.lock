@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/Nerian/bootstrap-datepicker-rails.git
+  revision: 0dcee7ddb65b2702cd8933c05ca5f238ee43e14e
+  specs:
+    bootstrap-datepicker-rails (1.8.0.1)
+      railties (>= 3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -217,6 +224,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.0.0)
+  bootstrap-datepicker-rails!
   byebug
   capybara (>= 2.15)
   chromedriver-helper

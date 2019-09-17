@@ -1,0 +1,27 @@
+<table class="table">
+  <thread>
+    <h1><%= t('.selling')%>:<h2>
+  </thread>
+  <tbody>
+    <tr>
+      <td width="100px"><%= t('.name') %></td>
+      <td><%= @product.name %> </td>   
+    </tr>
+    <tr>
+      <td><%= t('.cost') %></td>
+      <td><%= @product.cost * @selling.amount %> </td>
+    </tr>
+    <tr>
+      <td><%= t('.amount') %></td>
+      <td><%= @selling.amount %>  </td>
+    </tr>
+    <tr>
+      <td><%= t('.brake') %></td>
+      <td><%= @selling.brake %>  </td>
+    </tr>
+    <tr>
+      <td><%= t('.user') %></td>
+      <td><%= @selling.user.email %>  </td>
+    </tr>
+  </tbody>
+</table>

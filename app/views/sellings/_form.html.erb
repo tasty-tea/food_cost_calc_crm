@@ -1,0 +1,22 @@
+<%= form_for @selling do |f| %>
+	<table class="table">
+      <thread>
+      	<h1><%= t('.new_selling') %><h2>
+      </thread>
+      <tbody>
+      	<tr>
+          <td width="100px"><%= t('.name') %></td>
+          <td><%= f.collection_select(:product_id, Product.all, :id, :name, :prompt => 'Select') %></td>   
+        </tr>
+        <tr>
+        	<td><%= t('.amount') %></td>
+        	<td><%= text_field_tag :amount, @selling.amount || t('.amount') %></td>
+        </tr>
+        <tr>
+        	<td><%= t('.is_brake') %></td>
+        	<td><%= f.select(:brake, [["sell", 0], ["brake", 1]])%></td>
+        </tr>
+      </tbody>
+    </table>
+  <%= f.submit %>
+<% end %>

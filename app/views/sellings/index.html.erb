@@ -1,0 +1,32 @@
+<script>
+  $(document).on("focus", "[data-behaviour~='datepicker']", function(e){
+    $(this).datepicker({"format": "yyyy-mm-dd", "weekStart": 1, "autoclose": true})
+  });
+</script>
+
+
+<div class="container">
+<p>
+	<h2><strong><%= t('.selling_list') %></strong></h2>
+</p>
+
+
+<%= form_with url: search_sellings_path(), remote: 'true' do |f|%>
+  <%= text_field_tag "date_selected", Date.yesterday.to_s, 'data-behaviour' => 'datepicker' %>
+  <%= submit_tag t('search') %>
+<% end %>
+
+
+<p>
+	<strong><%= t('model.selling.many') %>:</strong>
+  <div id="class-table">
+    <%= render partial: "search_partial" %> 
+  </div>
+</p>
+
+
+<div>
+  <%= link_to t('new'), new_selling_path() %> </br>
+  <%= link_to t('back'), root_path() %>
+</div>
+</div>
