@@ -67,13 +67,8 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # Bootstrap gems
 gem 'bootstrap', '~> 4.0.0'
-<<<<<<< Updated upstream
-gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails',
-                              :git => 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
-=======
 
 # JQuery gems
 gem 'bootstrap-datepicker-rails', require: 'bootstrap-datepicker-rails',
                                   git: 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
 gem 'select2-rails'
->>>>>>> Stashed changes
