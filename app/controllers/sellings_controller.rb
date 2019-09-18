@@ -5,16 +5,16 @@ class SellingsController < ApplicationController
   before_action :set_product, only: %i[show]
 
   def index
-      @sellings = Selling.all
+    @sellings = Selling.all
   end
 
   def search
     date_selected = Date.parse(params[:date_selected])
-    if date_selected
-      @sellings = Selling.where_date(date_selected)
-    else      
-      @sellings = Selling.all
-    end
+    @sellings = if date_selected
+                  Selling.where_date(date_selected)
+                else
+                  Selling.all
+                end
     render 'search'
   end
 
@@ -29,6 +29,9 @@ class SellingsController < ApplicationController
   def create
     @selling = Selling.new(selling_params)
     @selling.user_id ||= current_user.id
+    Rails.logger.info selling_params.inspect
+    product = Product.find(selling_params["product_id"])
+    product.write_off(selling_params["amount"].to_i)
 
     if @selling.save
       redirect_to @selling
@@ -57,7 +60,7 @@ class SellingsController < ApplicationController
   end
 
   def set_product
-    @set_selling if !@selling
+    @set_selling unless @selling
     @product = @selling.product
   end
 

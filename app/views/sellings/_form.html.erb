@@ -10,7 +10,7 @@
         </tr>
         <tr>
         	<td><%= t('.amount') %></td>
-        	<td><%= text_field_tag :amount, @selling.amount || t('.amount') %></td>
+        	<td><%= text_field_tag 'selling[amount]', @selling.amount || t('.amount') %></td>
         </tr>
         <tr>
         	<td><%= t('.is_brake') %></td>

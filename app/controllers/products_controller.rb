@@ -7,14 +7,18 @@ class ProductsController < ApplicationController
     @products = Product.all.ordered
   end
 
-  def show; end
+  def show
+    @stock_units = StockUnit.all
+  end
 
   def new
     @stock_units = StockUnit.all
     @product = Product.new
   end
 
-  def edit; end
+  def edit
+    @stock_units = StockUnit.all
+  end
 
   def create
     @product = Product.new(product_params.except(:ingredients))

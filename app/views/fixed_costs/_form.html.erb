@@ -14,7 +14,8 @@
         </tr>
         <tr>
         	<td><%= t('.frequency') %></td>
-        	<td><%= text_field_tag 'fixed_cost[frequency]', @fixed_cost.frequency || t('.frequency')%></td>
+        	<!-- <td><%= text_field_tag 'fixed_cost[frequency]', @fixed_cost.frequency || t('.frequency')%></td> -->
+          <td><%= f.select(:frequency, %w{once daily weekly monthly yearly})%></td>
         </tr>
         <tr>
           <td><%= t('.date_started') %></td>
