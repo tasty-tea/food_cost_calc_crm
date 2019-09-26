@@ -8,7 +8,9 @@ Rails.application.routes.draw do
       post 'search'
     end
   end
-  resources :stock_units
+  resources :stock_units do
+    resources :stock_movements
+  end
   resources :products do
     resources :ingredients
   end

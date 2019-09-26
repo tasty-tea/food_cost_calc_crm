@@ -1,0 +1,20 @@
+<%= form_with url: stock_unit_stock_movements_path(@stock_unit), scope: 'stock_movement' do |f| %>
+	<a>Add new</a>
+	<table class="table">
+      <tbody>
+      	<tr>
+          <td width="100px"><%= t('.amount') %></td>
+          <td><%= text_field_tag 'stock_movement[amount]' %></td>   
+        </tr>
+        <tr>
+        	<td><%= t('.measure_units') %></td>
+            <td><%= f.select(:measure_units, %w{pieces g ml kg litres})%></td>
+        </tr>
+        <tr>
+        	<td><%= t('.cost') %></td>
+        	<td><%= text_field_tag 'stock_movement[cost]' %></td>
+        </tr>
+      </tbody>
+    </table>
+  <%= submit_tag t('create') %>
+<% end %>

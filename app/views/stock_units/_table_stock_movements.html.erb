@@ -1,0 +1,27 @@
+<h2><strong><%= t('model.stock_movement.many') %>:</strong></h2>
+<% if !@stock_unit.stock_movements %>
+	<%= t('list_is_empty') %>
+<% else %>
+	<table class="table">
+    <thread>
+		  <tr>
+        <td width="100px"><%= t('id') %></td>
+        <td width="100px"><%= t('amount') %></td>
+        <td width="50px"><%= t('measure') %></td>
+        <td width="50px"><%= t('cost') %></td>
+        <td>Delete</td>
+      </tr>
+  </thread>
+    <tbody>
+      <% @stock_unit.stock_movements.each do |stock_movement| %>
+        <tr>
+          <td><%= stock_movement.id %></td>
+          <td><%= stock_movement.amount %></td>
+          <td><%= stock_movement.measure_units %></td>
+          <td><%= stock_movement.cost %></td>
+          <td><%= button_to t('delete'), stock_unit_stock_movement_path(@stock_unit, stock_movement[:id]), :method => :delete %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
