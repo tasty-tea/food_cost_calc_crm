@@ -30,8 +30,8 @@ class SellingsController < ApplicationController
     @selling = Selling.new(selling_params)
     @selling.user_id ||= current_user.id
     Rails.logger.info selling_params.inspect
-    product = Product.find(selling_params["product_id"])
-    product.write_off(selling_params["amount"].to_i)
+    product = Product.find(selling_params['product_id'])
+    product.write_off(selling_params['amount'].to_i)
 
     if @selling.save
       redirect_to @selling
