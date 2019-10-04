@@ -22,7 +22,6 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params.except(:ingredients))
-    @product.ingredients.build(product_params[:ingredients]) if product_params[:ingredients]
 
     if @product.save
       redirect_to @product, notice: t('.success')
