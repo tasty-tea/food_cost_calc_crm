@@ -38,6 +38,21 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+gem 'dry-initializer'
+
+# Bootstrap gems
+gem 'bootstrap', '~> 4.0.0'
+
+# JQuery gems
+gem 'bootstrap-datepicker-rails', require: 'bootstrap-datepicker-rails',
+                                  git: 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
+gem 'select2-rails'
+
+gem 'devise'
+
+gem 'jquery-rails'
+
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -61,14 +76,4 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'devise'
-gem 'jquery-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-
-# Bootstrap gems
-gem 'bootstrap', '~> 4.0.0'
-
-# JQuery gems
-gem 'bootstrap-datepicker-rails', require: 'bootstrap-datepicker-rails',
-                                  git: 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
-gem 'select2-rails'

@@ -2,6 +2,7 @@
 
 class StockUnit < ApplicationRecord
   validates :name, uniqueness: true
+  validates :name, presence: true
 
   has_many :ingredients, dependent: :destroy
   has_many :products, through: :ingredients
