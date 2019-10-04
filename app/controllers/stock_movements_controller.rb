@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-class StockMovementsController < ApplicationController
 
+class StockMovementsController < ApplicationController
   before_action :set_stock_unit, only: %i[index destroy create]
   before_action :set_stock_movement, only: %i[update destroy]
 
@@ -51,5 +51,4 @@ class StockMovementsController < ApplicationController
   def stock_movement_update_params
     params.require(:stock_movement).permit(:amount, :cost, :measure_units)
   end
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BaseServiceObject
   extend Dry::Initializer # use `param` and `option` for dependencies
 
@@ -21,8 +23,7 @@ class BaseServiceObject
   def valid?
     errors.messages.empty?
   end
-
-  private
+  
 
   class Result
     attr_reader :object

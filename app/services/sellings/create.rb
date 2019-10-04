@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Sellings
   class Create < BaseServiceObject
     param :stock_unit_id

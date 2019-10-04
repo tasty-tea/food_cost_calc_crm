@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Products
   class WriteOff < BaseServiceObject
     param :stock_unit_id
