@@ -23,7 +23,6 @@ class BaseServiceObject
   def valid?
     errors.messages.empty?
   end
-  
 
   class Result
     attr_reader :object

@@ -1,4 +1,8 @@
-require: rubocop-rails
+require: 
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+
 Style/FrozenStringLiteralComment:
   Enabled: true
 Metrics/LineLength:
