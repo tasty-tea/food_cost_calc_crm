@@ -7,14 +7,14 @@ module Sellings
     option :product_id
     option :amount
     option :brake, default: -> { false }
-    #option :user_id
+    # option :user_id #TODO add user selection for admin
 
     def call
       validate
-      return Result.new(object: self, success: false) unless valid?
+      return Result.new(object: selling, success: false) unless valid?
 
       ActiveRecord::Base.transaction do
-        Products::WriteOff.call(product_id: product_id,
+        Products::WriteOff.call(product: product,
                                 amount: amount,
                                 brake: brake)
         selling.save!
@@ -26,7 +26,8 @@ module Sellings
     private
 
     def validate
-      errors.add(:base, 'please specify product') unless user
+      errors.add(:base, 'product does not exist') unless @product
+      errors.add(:base, 'user does not exits') unless @user
       errors.add(:base, 'please specify amount') unless amount
       errors.merge_with_models(selling) unless selling.valid?
     end

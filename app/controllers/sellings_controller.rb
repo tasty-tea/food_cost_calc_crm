@@ -28,13 +28,12 @@ class SellingsController < ApplicationController
 
   def create
     result = Sellings::Create.call(current_user, selling_params.to_h)
-    Rails.logger.info "result object #{result.object}"
     @selling = result.object
 
     if result.success?
       redirect_to @selling
     else
-      render :new
+      render :new, alert: t('.failure')
     end
   end
 
@@ -42,7 +41,7 @@ class SellingsController < ApplicationController
     if @selling.update(selling_params)
       redirect_to @selling
     else
-      render :edit
+      render :edit, alert: t('.failure')
     end
   end
 

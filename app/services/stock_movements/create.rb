@@ -20,6 +20,7 @@ module StockMovements
     private
 
     def validate
+      errors.add(:base, 'stock unit does not exist') unless @stock_unit
       errors.add(:base, 'please specify amount') unless amount
       errors.merge_with_models(stock_movement) unless stock_movement.valid?
     end
@@ -28,6 +29,7 @@ module StockMovements
       @stock_unit ||= StockUnit.find(stock_unit_id)
     end
 
+    # TODO: automaticly calculate to correct measure
     def stock_movement
       measure_units = stock_unit.measure_units
       @stock_movement ||= StockMovement.new(stock_unit_id: stock_unit_id,
