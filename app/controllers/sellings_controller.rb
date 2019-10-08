@@ -27,13 +27,11 @@ class SellingsController < ApplicationController
   def edit; end
 
   def create
-    @selling = Selling.new(selling_params)
-    @selling.user_id ||= current_user.id
-    Rails.logger.info selling_params.inspect
-    product = Product.find(selling_params['product_id'])
-    product.write_off(selling_params['amount'].to_i)
+    result = Sellings::Create.call(current_user, selling_params.to_h)
+    Rails.logger.info "result object #{result.object}"
+    @selling = result.object
 
-    if @selling.save
+    if result.success?
       redirect_to @selling
     else
       render :new

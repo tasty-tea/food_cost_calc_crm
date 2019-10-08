@@ -2,32 +2,34 @@
 
 module Products
   class WriteOff < BaseServiceObject
-    param :stock_unit_id
-
+    option :product_id
     option :amount
-    option :cost
-    option :measure_units
     option :brake, default: -> { false }
 
     def call
-      validate
-      return self unless valid?
-
-      selling.save!
-      # some logic after saving Post
-      self.result = selling
-      self
+      result_object = []
+      StockMovement.transaction do
+        product.ingredients.each do |ingredient|
+          stu = ingredient.stock_unit
+          imul = (ingredient.amount.to_i * amount.to_i)
+          iamount = (brake == 0) ? -imul : imul
+          result_object << StockMovements::Create.call(stu.id,
+                                                       amount: iamount,
+                                                       cost: effective_cost(ingredient),
+                                                       brake: brake)
+        end
+      end
+      Result.new(object: result_object, success: true)
     end
 
     private
 
-    def validate
-      errors.add(:base, 'please specify amount') unless amount
-      errors.merge_with_models(selling) unless selling.valid?
+    def product
+      @product ||= Product.find(product_id)
     end
 
-    def selling
-      @selling ||= Sellings.new(stock_unit_id: stock_unit_id, amount: amount, cost: cost, measure_units: measure_units, brake: brake)
+    def effective_cost(ingredient)
+      ingredient.stock_unit.cost
     end
   end
 end
