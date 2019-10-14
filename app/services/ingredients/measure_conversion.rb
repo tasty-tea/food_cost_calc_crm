@@ -6,11 +6,11 @@ module Ingredients
     option :amount
     option :measure_units
 
-    MEASURE_UNTIS_LIST = {'kg':     {'mg': 1000, 'kg': 1},
-                          'mg':     {'kg':0.001, 'mg': 1},
-                          'l':      {'ml': 1000, 'l': 1},
-                          'ml':     {'l': 0.001, 'ml': 1},
-                          'pieces': {'pieces': 1}}
+    MEASURE_UNTIS_LIST = {kg:     {g: 1000, kg: 1},
+                          g:     {kg: 0.001, g: 1},
+                          l:      {ml: 1000, l: 1},
+                          ml:     {l: 0.001, ml: 1},
+                          pieces: {pieces: 1}}
 
     def call
       return failure_result if !valid?
@@ -35,7 +35,7 @@ module Ingredients
     private
 
     def failure_result
-      Result.new(object: {amount: nil, measure_units: nil}, success: false)
+      Result.new(object: StockUnit.new(amount: nil, measure_units: nil), success: false)
     end
 
     def stock_unit
