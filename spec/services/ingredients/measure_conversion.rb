@@ -34,13 +34,15 @@ RSpec.describe Ingredients::MeasureConversion do
 
   context 'with measure_units' do
     context 'when measure_units unknown' do
-      let(:stock_unit) { build(:stock_unit, measure_units: "qqpt") }
+      let(:stock_unit) { create(:stock_unit, measure_units: "qqpt") }
+      let(:measure_units) { 'pstg' }
       it_behaves_like 'argument is incorrect', ['incorrect measure unit selected']
     end
 
     context 'when measure_units correct' do
       context 'convert kg to g' do
-        let(:stock_unit) { build(:stock_unit, measure_units: "g") }
+        let(:stock_unit) { create(:stock_unit, measure_units: "g") }
+        let(:measure_units) { 'kg' }
         it 'returns Result with success and kg is converted' do
           expect(subject.success?).to eq true
           expect(subject.object.measure_units).to eq 'g'
@@ -49,7 +51,8 @@ RSpec.describe Ingredients::MeasureConversion do
       end
 
       context 'convert g to kg' do
-        let(:stock_unit) { build(:stock_unit, measure_units: "kg") }
+        let(:stock_unit) { create(:stock_unit, measure_units: "kg") }
+        let(:measure_units) { 'g' }
         it 'returns Result with success and g is converted' do
           expect(subject.success?).to eq true
           expect(subject.object.measure_units).to eq 'kg'
@@ -58,7 +61,8 @@ RSpec.describe Ingredients::MeasureConversion do
       end
 
       context 'convert ml to l' do
-        let(:stock_unit) { build(:stock_unit, measure_units: "l") }
+        let(:stock_unit) { create(:stock_unit, measure_units: "l") }
+        let(:measure_units) { 'ml' }
         it 'returns Result with success and ml is converted' do
           expect(subject.success?).to eq true
           expect(subject.object.measure_units).to eq 'l'
@@ -67,7 +71,8 @@ RSpec.describe Ingredients::MeasureConversion do
       end
 
       context 'convert l to ml' do
-        let(:stock_unit) { build(:stock_unit, measure_units: "ml") }
+        let(:stock_unit) { create(:stock_unit, measure_units: "ml") }
+        let(:measure_units) { 'l' }
         it 'returns Result with success and l is converted' do
           expect(subject.success?).to eq true
           expect(subject.object.measure_units).to eq 'ml'
@@ -76,7 +81,8 @@ RSpec.describe Ingredients::MeasureConversion do
       end
 
       context 'not convert pieses to anything' do
-        let(:stock_unit) { build(:stock_unit, measure_units: "pieces") }
+        let(:stock_unit) { create(:stock_unit, measure_units: "pieces") }
+        let(:measure_units) { 'pieces' }
         it 'returns Result with success and pieces is not converted' do
           expect(subject.success?).to eq true
           expect(subject.object.measure_units).to eq 'pieces'
