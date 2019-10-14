@@ -15,10 +15,9 @@ module Sellings
       ActiveRecord::Base.transaction do
         selling.save!
         Ingredients::WriteOff.call(product: product,
-                                selling: selling,
-                                amount: amount,
-                                brake: brake)
-        
+                                   selling: selling,
+                                   amount: amount,
+                                   brake: brake)
       end
 
       Result.new(object: selling, success: true)
