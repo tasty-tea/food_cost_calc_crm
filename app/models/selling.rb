@@ -3,6 +3,7 @@
 class Selling < ApplicationRecord
   belongs_to :product
   belongs_to :user
+  has_many :stock_movements, dependent: :destroy
 
   scope :where_date, lambda { |item|
                        where(

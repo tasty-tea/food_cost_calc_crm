@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_23_111013) do
+ActiveRecord::Schema.define(version: 2019_10_08_114621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,8 @@ ActiveRecord::Schema.define(version: 2019_09_23_111013) do
     t.boolean "brake", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "selling_id"
+    t.index ["selling_id"], name: "index_stock_movements_on_selling_id"
     t.index ["stock_unit_id"], name: "index_stock_movements_on_stock_unit_id"
   end
 

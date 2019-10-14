@@ -2,10 +2,11 @@
 
 class Product < ApplicationRecord
   validates :name, uniqueness: true
+  validates :name, presence: true
 
   has_many :ingredients, dependent: :destroy
   has_many :stock_units, through: :ingredients
-  has_many :sellings, dependent: :nullify
+  has_many :sellings, dependent: :destroy
 
   scope :ordered, -> { order(:id) }
 

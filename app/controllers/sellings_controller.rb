@@ -29,7 +29,6 @@ class SellingsController < ApplicationController
   def create
     result = Sellings::Create.call(current_user, selling_params.to_h)
     @selling = result.object
-
     if result.success?
       redirect_to @selling
     else

@@ -3,7 +3,7 @@
 module StockMovements
   class Create < BaseServiceObject
     param :stock_unit_id
-
+    option :selling_id
     option :amount
     option :cost
     option :measure_units, default: -> { stock_unit.measure_units }
@@ -33,6 +33,7 @@ module StockMovements
     def stock_movement
       measure_units = stock_unit.measure_units
       @stock_movement ||= StockMovement.new(stock_unit_id: stock_unit_id,
+                                            selling_id: selling_id,
                                             amount: amount,
                                             cost: cost,
                                             measure_units: measure_units,

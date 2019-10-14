@@ -1,32 +1,29 @@
 # frozen_string_literal: true
 
-module Products
+module Ingredients
   class WriteOff < BaseServiceObject
     option :product
+    option :selling
     option :amount
     option :brake, default: -> { false }
 
     def call
-      result_object = []
+      stock_movements_created = []
       StockMovement.transaction do
         product.ingredients.each do |ingredient|
-          stu = ingredient.stock_unit
-          imul = (ingredient.amount.to_i * amount.to_i)
-          iamount = brake.zero? ? -imul : imul
-          result_object << StockMovements::Create.call(stu.id,
-                                                       amount: iamount,
+          stock_unit = ingredient.stock_unit
+          total_amount = -1 * (ingredient.amount.to_i * amount.to_i)
+          stock_movements_created << StockMovements::Create.call(stock_unit.id,
+                                                       selling_id: selling.id,
+                                                       amount: total_amount,
                                                        cost: effective_cost(ingredient),
                                                        brake: brake)
         end
       end
-      Result.new(object: result_object, success: true)
+      Result.new(object: stock_movements_created, success: true)
     end
 
     private
-
-    # def product
-    #   @product ||= Product.find(product_id)
-    # end
 
     def effective_cost(ingredient)
       ingredient.stock_unit.cost
