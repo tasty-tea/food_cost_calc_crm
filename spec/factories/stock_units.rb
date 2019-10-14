@@ -6,6 +6,6 @@ FactoryBot.define do
     cost { 11.11 }
     amount { 42 }
     rejected { 12 }
-    measure_untits { 'kg' }
+    measure_units { 'kg' }
   end
 end
