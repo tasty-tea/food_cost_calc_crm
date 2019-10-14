@@ -42,7 +42,7 @@ RSpec.describe Ingredients::MeasureConversion do
       context 'convert kg to mg' do
         let(:stock_unit) { build(:stock_unit, measure_units: "mg") }
         it 'returns Result with success and kg is converted' do
-          expect(subject.success?).to eq ture
+          expect(subject.success?).to eq true
           expect(subject.object.measure_units).to eq 'mg'
           expect(subject.object.amount).to eq 1000000
         end
@@ -51,7 +51,7 @@ RSpec.describe Ingredients::MeasureConversion do
       context 'convert mg to kg' do
         let(:stock_unit) { build(:stock_unit, measure_units: "kg") }
         it 'returns Result with success and mg is converted' do
-          expect(subject.success?).to eq ture
+          expect(subject.success?).to eq true
           expect(subject.object.measure_units).to eq 'kg'
           expect(subject.object.amount).to eq 1
         end
@@ -60,7 +60,7 @@ RSpec.describe Ingredients::MeasureConversion do
       context 'convert ml to l' do
         let(:stock_unit) { build(:stock_unit, measure_units: "l") }
         it 'returns Result with success and ml is converted' do
-          expect(subject.success?).to eq ture
+          expect(subject.success?).to eq true
           expect(subject.object.measure_units).to eq 'l'
           expect(subject.object.amount).to eq 1
         end
@@ -69,7 +69,7 @@ RSpec.describe Ingredients::MeasureConversion do
       context 'convert l to ml' do
         let(:stock_unit) { build(:stock_unit, measure_units: "ml") }
         it 'returns Result with success and l is converted' do
-          expect(subject.success?).to eq ture
+          expect(subject.success?).to eq true
           expect(subject.object.measure_units).to eq 'ml'
           expect(subject.object.amount).to eq 1000000
         end
@@ -78,7 +78,7 @@ RSpec.describe Ingredients::MeasureConversion do
       context 'not convert pieses to anything' do
         let(:stock_unit) { build(:stock_unit, measure_units: "pieces") }
         it 'returns Result with success and pieces is not converted' do
-          expect(subject.success?).to eq ture
+          expect(subject.success?).to eq true
           expect(subject.object.measure_units).to eq 'pieces'
           expect(subject.object.amount).to eq 1000
         end
