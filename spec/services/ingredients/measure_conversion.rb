@@ -33,24 +33,24 @@ RSpec.describe Ingredients::MeasureConversion do
   end
 
   context 'with measure_units' do
-    context 'unknown measure_units' do
+    context 'when measure_units unknown' do
       let(:stock_unit) { build(:stock_unit, measure_units: "qqpt") }
       it_behaves_like 'argument is incorrect', ['incorrect measure unit selected']
     end
 
-    context 'correct measure_units' do
-      context 'convert kg to mg' do
-        let(:stock_unit) { build(:stock_unit, measure_units: "mg") }
+    context 'when measure_units correct' do
+      context 'convert kg to g' do
+        let(:stock_unit) { build(:stock_unit, measure_units: "g") }
         it 'returns Result with success and kg is converted' do
           expect(subject.success?).to eq true
-          expect(subject.object.measure_units).to eq 'mg'
+          expect(subject.object.measure_units).to eq 'g'
           expect(subject.object.amount).to eq 1000000
         end
       end
 
-      context 'convert mg to kg' do
+      context 'convert g to kg' do
         let(:stock_unit) { build(:stock_unit, measure_units: "kg") }
-        it 'returns Result with success and mg is converted' do
+        it 'returns Result with success and g is converted' do
           expect(subject.success?).to eq true
           expect(subject.object.measure_units).to eq 'kg'
           expect(subject.object.amount).to eq 1
