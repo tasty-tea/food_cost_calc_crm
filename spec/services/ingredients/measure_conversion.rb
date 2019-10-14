@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Ingredients::MeasureConversion do
   subject do 
     described_class.call(stock_unit_id: stock_unit&.id,
-                         amount: amount
+                         amount: amount,
                          measure_units: measure_units)
   end
 
@@ -12,7 +12,7 @@ RSpec.describe Ingredients::MeasureConversion do
   let(:measure_units) { 'kg' }
 
   shared_examples 'argument is incorrect' do
-    it 'returns Result with false success parameter'
+    it 'returns Result with false success parameter' do
       expect(subject.success?).to eq false
     end
   end

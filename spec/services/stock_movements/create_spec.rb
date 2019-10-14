@@ -17,7 +17,7 @@ describe StockMovements::Create do
   let(:measure_units) { 'kg' }
   let(:brake) { true }
 
-  shared_examples 'stock movement invalid' do |stock_movement|
+  shared_examples 'stock movement invalid' do
     it 'returns StockMovement#count' do
       expect { subject }.not_to change(StockMovement, :count).from(0)
     end
