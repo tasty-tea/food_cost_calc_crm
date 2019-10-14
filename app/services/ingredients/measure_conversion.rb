@@ -6,22 +6,21 @@ module Ingredients
     option :amount
     option :measure_units
 
-    MEASURE_UNTIS_LIST = {kg:     {g: 1000, kg: 1},
-                          g:     {kg: 0.001, g: 1},
-                          l:      {ml: 1000, l: 1},
-                          ml:     {l: 0.001, ml: 1},
-                          pieces: {pieces: 1}}
+    MEASURE_UNTIS_LIST = { kg: { g: 1000, kg: 1 },
+                           g: { kg: 0.001, g: 1 },
+                           l: { ml: 1000, l: 1 },
+                           ml: { l: 0.001, ml: 1 },
+                           pieces: { pieces: 1 } }.freeze
 
     def call
-      return failure_result if !valid?
-      return failure_result if !stock_unit
-      target_meagure_units = stock_unit.measure_units
+      return failure_result unless valid?
+      return failure_result unless stock_unit
 
-      conversion_coeffitient = MEASURE_UNTIS_LIST[measure_units.to_sym].try(:[], target_meagure_units.to_sym)
-      return failure_result if !conversion_coeffitient
+      target_meagure_units = stock_unit.measure_units
+      return failure_result unless conversion_coeffitient(measure_units, target_meagure_units)
 
       converted_object = StockUnit.new(amount: amount * conversion_coeffitient,
-                                         measure_units: target_meagure_units)
+                                       measure_units: target_meagure_units)
       Result.new(object: converted_object, success: true)
     end
 
@@ -33,6 +32,10 @@ module Ingredients
     end
 
     private
+
+    def conversion_coeffitient(source, target)
+      MEASURE_UNTIS_LIST[source.to_sym].try(:[], target.to_sym)
+    end
 
     def failure_result
       Result.new(object: StockUnit.new(amount: nil, measure_units: nil), success: false)
