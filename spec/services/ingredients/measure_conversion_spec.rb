@@ -4,102 +4,124 @@ require 'rails_helper'
 
 RSpec.describe Ingredients::MeasureConversion do
   subject(:result) do
-    described_class.call(source_measure_units: source_measure_units,
-                         target_measure_units: target_measure_units,
-                         amount: amount)
+    described_class.call(source_measure_units: conversion_params[:source],
+                         target_measure_units: conversion_params[:target],
+                         amount: conversion_params[:amount])
   end
 
-  let(:source_measure_units) { 'kg' }
-  let(:target_measure_units) { 'g' }
-  let(:amount) { 1000 }
+  let(:conversion_params) do
+    { source: 'kg',
+      target: 'g',
+      amount: 1000 }
+  end
 
   shared_examples 'argument is incorrect' do
     it 'returns Result with false success parameter' do
-      expect(result.success?).to eq false
+      expect(result.success?).to be false
+    end
+  end
+
+  shared_examples 'conversion is successful' do |source, target, amount|
+    let(:conversion_params) do
+      {
+        source: source,
+        target: target,
+        amount: 1000
+      }
+    end
+
+    it 'returns success' do
+      expect(result.success?).to be true
+    end
+
+    it "converts #{source} -> #{target}" do
+      expect(result.object.measure_units).to eq target
+    end
+
+    it "is equal #{amount}" do
+      expect(result.object.amount).to eq amount
     end
   end
 
   context 'without target' do
-    let(:target_measure_units) {}
+    let(:conversion_params) do
+      {
+        source: 'kg',
+        target: nil,
+        amount: 1000
+      }
+    end
 
-    it_behaves_like 'argument is incorrect', ['stock unit is missing']
+    it_behaves_like 'argument is incorrect'
   end
 
   context 'without amount' do
-    let(:amount) {}
+    let(:conversion_params) do
+      {
+        source: 'kg',
+        target: 'g',
+        amount: nil
+      }
+    end
 
-    it_behaves_like 'argument is incorrect', ['amount is missing']
+    it_behaves_like 'argument is incorrect'
   end
 
   context 'without source' do
-    let(:source_measure_units) {}
-
-    it_behaves_like 'argument is incorrect', ['stock unit is missing']
-  end
-
-  context 'with measure_units' do
-    context 'when measure_units unknown' do
-      let(:source_measure_units) { 'pstg' }
-      let(:target_measure_units) { 'qqpt' }
-
-      it_behaves_like 'argument is incorrect', ['incorrect measure unit selected']
+    let(:conversion_params) do
+      {
+        source: nil,
+        target: 'g',
+        amount: 1000
+      }
     end
 
-    context 'when measure_units correct' do
-      context 'convert kg to g' do
-        let(:source_measure_units) { 'g' }
-        let(:target_measure_units) { 'kg' }
+    it_behaves_like 'argument is incorrect'
+  end
 
-        it 'returns Result with kg converted' do
-          expect(result.success?).to eq true
-          expect(result.object.measure_units).to eq 'g'
-          expect(result.object.amount).to eq 1_000_000
-        end
-      end
+  context 'when source_measure_units unknown' do
+    let(:conversion_params) do
+      {
+        source: 'pptg',
+        target: 'g',
+        amount: 1000
+      }
+    end
 
-      context 'convert g to kg' do
-        let(:source_measure_units) { 'kg' }
-        let(:target_measure_units) { 'g' }
+    it_behaves_like 'argument is incorrect', ['incorrect source measure unit selected']
+  end
 
-        it 'returns Result with g converted' do
-          expect(result.success?).to eq true
-          expect(result.object.measure_units).to eq 'kg'
-          expect(result.object.amount).to eq 1
-        end
-      end
+  context 'when target_measure_units unknown' do
+    let(:conversion_params) do
+      {
+        source: 'kg',
+        target: 'qqpt',
+        amount: 1000
+      }
+    end
 
-      context 'convert ml to l' do
-        let(:source_measure_units) { 'l' }
-        let(:target_measure_units) { 'ml' }
+    it_behaves_like 'argument is incorrect', ['incorrect target measure unit selected']
+  end
 
-        it 'returns Result with ml converted' do
-          expect(result.success?).to eq true
-          expect(result.object.measure_units).to eq 'l'
-          expect(result.object.amount).to eq 1
-        end
-      end
+  context 'when measure_units correct' do
+    context 'with kg to g convertion' do
+      it_behaves_like 'conversion is successful', 'kg', 'g', 1_000_000
+    end
 
-      context 'convert l to ml' do
-        let(:source_measure_units) { 'ml' }
-        let(:target_measure_units) { 'l' }
+    context 'with g to kg convertion' do
+      it_behaves_like 'conversion is successful', 'g', 'kg', 1
+    end
 
-        it 'returns Result with l converted' do
-          expect(result.success?).to eq true
-          expect(result.object.measure_units).to eq 'ml'
-          expect(result.object.amount).to eq 1_000_000
-        end
-      end
+    context 'with ml to l convertion' do
+      it_behaves_like 'conversion is successful', 'ml', 'l', 1
+    end
 
-      context 'not convert pieses to anything' do
-        let(:source_measure_units) { 'pieces' }
-        let(:target_measure_units) { 'pieces' }
+    context 'with l to ml convertion' do
+      it_behaves_like 'conversion is successful', 'l', 'ml', 1_000_000
+    end
 
-        it 'returns Result with pieces not converted' do
-          expect(result.success?).to eq true
-          expect(result.object.measure_units).to eq 'pieces'
-          expect(result.object.amount).to eq 1000
-        end
-      end
+    context 'without pieses convertion' do
+      it_behaves_like 'conversion is successful', 'pieces', 'pieces', 1000
     end
   end
 end

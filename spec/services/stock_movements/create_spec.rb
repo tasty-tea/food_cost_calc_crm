@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe StockMovements::Create do
-  subject do
+  subject(:stock_movement) do
     described_class.call(stock_unit.id,
                          amount: message,
                          cost: cost,
@@ -38,11 +38,11 @@ describe StockMovements::Create do
 
     context 'with amount' do
       it 'returns StockMovement#count' do
-        expect { subject }.to change(StockMovement, :count).from(0).to(1)
+        expect(stock_movement).to change(StockMovement, :count).from(0).to(1)
       end
 
       it 'returns errors' do
-        expect(subject.errors.full_messages).to be_empty
+        expect(stock_movement.errors.full_messages).to be_empty
       end
     end
   end

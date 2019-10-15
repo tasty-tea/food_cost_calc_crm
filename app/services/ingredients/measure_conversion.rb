@@ -2,9 +2,9 @@
 
 module Ingredients
   class MeasureConversion < BaseServiceObject
-    option :stock_unit_id
+    option :source_measure_units
+    option :target_measure_units
     option :amount
-    option :measure_units
 
     MEASURE_UNTIS_LIST = { kg: { g: 1000, kg: 1 },
                            g: { kg: 0.001, g: 1 },
@@ -14,13 +14,12 @@ module Ingredients
 
     def call
       return failure_result unless valid?
-      return failure_result unless stock_unit
 
-      target_meagure_units = stock_unit.measure_units
-      return failure_result unless conversion_coeffitient(measure_units, target_meagure_units)
+      coeffitient = conversion_coeffitient(source_measure_units, target_measure_units)
+      return failure_result unless coeffitient
 
-      converted_object = StockUnit.new(amount: amount * conversion_coeffitient,
-                                       measure_units: target_meagure_units)
+      converted_object = StockUnit.new(amount: amount * coeffitient,
+                                       measure_units: target_measure_units)
       Result.new(object: converted_object, success: true)
     end
 
@@ -41,14 +40,10 @@ module Ingredients
       Result.new(object: StockUnit.new(amount: nil, measure_units: nil), success: false)
     end
 
-    def stock_unit
-      @stock_unit = StockUnit.find_by(id: stock_unit_id)
-    end
-
     def validate!
-      raise ArgumentError if stock_unit_id.nil?
+      raise ArgumentError if source_measure_units.nil?
+      raise ArgumentError if target_measure_units.nil?
       raise ArgumentError if amount.nil?
-      raise ArgumentError if measure_units.nil?
     end
   end
 end
