@@ -5,12 +5,7 @@ module Ingredients
     option :source_measure_units
     option :target_measure_units
     option :amount
-
-    MEASURE_UNTIS_LIST = { kg: { g: 1000, kg: 1 },
-                           g: { kg: 0.001, g: 1 },
-                           l: { ml: 1000, l: 1 },
-                           ml: { l: 0.001, ml: 1 },
-                           pieces: { pieces: 1 } }.freeze
+    option :config, default: -> { Rails.configuration.application['measure_units_list'] }
 
     def call
       return failure_result unless valid?
@@ -33,7 +28,7 @@ module Ingredients
     private
 
     def conversion_coeffitient(source, target)
-      MEASURE_UNTIS_LIST[source.to_sym].try(:[], target.to_sym)
+      config[source].try(:[], target)
     end
 
     def failure_result
