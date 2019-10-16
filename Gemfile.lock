@@ -66,6 +66,11 @@ GEM
       popper_js (>= 1.12.9, < 2)
       sass (>= 3.5.2)
     builder (3.2.3)
+    bundle-audit (0.1.0)
+      bundler-audit
+    bundler-audit (0.6.1)
+      bundler (>= 1.2.0, < 3)
+      thor (~> 0.18)
     byebug (11.0.1)
     capybara (3.28.0)
       addressable
@@ -278,6 +283,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.0.0)
   bootstrap-datepicker-rails!
+  bundle-audit
   byebug
   capybara (>= 2.15)
   chromedriver-helper
