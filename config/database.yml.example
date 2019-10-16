@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  port: 5432
+
+development:
+  <<: *default
+  database: crm_development
+  username: postgres
+  password: 12345
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+test:
+  <<: *default
+  database: <%= ENV.fetch('POSTGRES_DB', 'crm_test') %>
+  host: postgres
+  username: <%= ENV.fetch('POSTGRES_USER', 'runner') %>

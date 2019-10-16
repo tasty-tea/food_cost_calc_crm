@@ -27,7 +27,11 @@ module Products
     end
 
     def selling
-      @selling ||= Sellings.new(stock_unit_id: stock_unit_id, amount: amount, cost: cost, measure_units: measure_units, brake: brake)
+      @selling ||= Sellings.new(stock_unit_id: stock_unit_id,
+                                amount: amount,
+                                cost: cost,
+                                measure_units: measure_units,
+                                brake: brake)
     end
   end
 end

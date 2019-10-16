@@ -28,7 +28,12 @@ module StockMovements
     end
 
     def stock_movement
-      @stock_movement ||= StockMovement.new(stock_unit_id: stock_unit_id, amount: amount, cost: cost, measure_units: measure_units, brake: brake)
+      @stock_movement ||= StockMovement.new(stock_unit_id: stock_unit_id,
+                                            selling_id: selling_id,
+                                            amount: amount,
+                                            cost: cost,
+                                            measure_units: measure_units,
+                                            brake: brake)
     end
   end
 end

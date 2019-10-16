@@ -28,7 +28,10 @@ module Sellings
     end
 
     def selling
-      @selling ||= Sellings.new(stock_unit_id: stock_unit_id, amount: amount, cost: cost, measure_units: measure_units, brake: brake)
+      @selling ||= Selling.new(product: product,
+                               amount: amount,
+                               brake: brake,
+                               user: user)
     end
   end
 end
