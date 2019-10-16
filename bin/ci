@@ -11,7 +11,7 @@ def system!(*args)
 end
 chdir APP_ROOT do
   system! 'bundle exec rubocop'
-  system! 'bundle exec bundle-audit update && bundle exec bundle-audit check'
+  system! 'bundle exec bundle audit check --update'
   system! 'bundle exec rspec --require spec_helper spec --format progress'
 end
 
