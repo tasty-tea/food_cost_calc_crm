@@ -2,7 +2,7 @@
 
 class SellingsController < ApplicationController
   before_action :set_selling, only: %i[show edit update destroy]
-  before_action :set_product, only: %i[show]
+  before_action :set_product, only: %i[show create]
 
   def index
     @sellings = Selling.all
@@ -29,9 +29,7 @@ class SellingsController < ApplicationController
   def create
     @selling = Selling.new(selling_params)
     @selling.user_id ||= current_user.id
-    Rails.logger.info selling_params.inspect
-    product = Product.find(selling_params['product_id'])
-    product.write_off(selling_params['amount'].to_i)
+    @product.write_off(selling_params['amount'].to_i)
 
     if @selling.save
       redirect_to @selling
