@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class Ingredient < ApplicationRecord
-  validates :stock_unit_id, uniqueness: { scope: :product_id }
-  validates :stock_unit_id, presence: true
+  validates :stock_unit_id, uniqueness: { scope: :product_id }, presence: true
   validates :product_id, presence: true
   validates :amount, presence: true
 

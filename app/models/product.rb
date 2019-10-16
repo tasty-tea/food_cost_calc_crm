@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class Product < ApplicationRecord
-  validates :name, uniqueness: true
-  validates :name, presence: true
+  validates :name, uniqueness: true, presence: true 
 
   has_many :ingredients, dependent: :destroy
   has_many :stock_units, through: :ingredients
