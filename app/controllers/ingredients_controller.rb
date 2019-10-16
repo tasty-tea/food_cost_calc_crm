@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class IngredientsController < ApplicationController
-  before_action :set_product, only: %i[index destroy create]
+  before_action :set_product, only: %i[index destroy create update]
   before_action :set_ingredient, only: %i[update destroy]
 
   def index
@@ -9,7 +9,7 @@ class IngredientsController < ApplicationController
   end
 
   def create
-    @ingredient = Ingredient.new(ingredient_params.merge(product_id: @product.id))
+    @ingredient = @product.ingredients.build(ingredient_params)
 
     if @ingredient.save
       redirect_to request.referer, notice: t('.success')
@@ -41,7 +41,7 @@ class IngredientsController < ApplicationController
   end
 
   def set_ingredient
-    @ingredient = Ingredient.find(params[:id])
+    @product.ingredients.find(params[:id])
   end
 
   def ingredient_params
