@@ -19,7 +19,7 @@ describe StockMovements::Create do
 
   shared_examples 'stock movement invalid' do
     it 'returns StockMovement#count' do
-      expect { subject }.not_to change(StockMovement, :count).from(0)
+      expect { subject }.not_to change { StockMovement.count }.from(0)
     end
   end
 
@@ -38,7 +38,7 @@ describe StockMovements::Create do
 
     context 'with amount' do
       it 'returns StockMovement#count' do
-        expect(stock_movement).to change(StockMovement, :count).from(0).to(1)
+        expect(stock_movement).to change { StockMovement.count }.from(0).to(1)
       end
 
       it 'returns errors' do
