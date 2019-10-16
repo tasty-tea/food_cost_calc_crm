@@ -41,14 +41,14 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'dry-initializer'
 
 # Bootstrap gems
-gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap', '~> 4.3.1'
 
 # JQuery gems
-gem 'bootstrap-datepicker-rails', require: 'bootstrap-datepicker-rails',
-                                  git: 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
+gem 'bootstrap-datepicker-rails'
+
 gem 'select2-rails'
 
-gem 'devise'
+gem 'devise', '~> 4.7.1'
 
 gem 'jquery-rails'
 
