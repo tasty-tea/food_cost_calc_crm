@@ -2,7 +2,7 @@
 
 class SellingsController < ApplicationController
   before_action :set_selling, only: %i[show edit update destroy]
-  before_action :set_product, only: %i[show create]
+  before_action :set_product, only: %i[show]
 
   def index
     @sellings = Selling.all
@@ -53,7 +53,7 @@ class SellingsController < ApplicationController
   end
 
   def set_product
-    @set_selling unless @selling
+    @selling = set_selling unless @selling
     @product = @selling.product
   end
 
