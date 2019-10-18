@@ -4,18 +4,21 @@ require 'rails_helper'
 
 describe StockMovements::Create do
   subject(:stock_movement) do
-    described_class.call(stock_unit.id,
-                         amount: message,
-                         cost: cost,
-                         measure_units: measure_units,
-                         brake: brake)
+    described_class.call(stock_unit, stock_movement_params)
   end
 
   let(:stock_unit) { create(:stock_unit) }
-  let(:amount) { 1 }
-  let(:cost) { 11.11 }
-  let(:measure_units) { 'kg' }
-  let(:brake) { true }
+  let(:user) { create(:user) }
+  let(:product) { create(:product) }
+  let(:stock_movement_params) do
+    {
+      selling: create(:selling, user: user, product: product),
+      amount: 1,
+      cost: 11.11,
+      measure_units: 'kg',
+      brake: true
+    }
+  end
 
   shared_examples 'stock movement invalid' do
     it 'returns StockMovement#count' do
@@ -29,21 +32,9 @@ describe StockMovements::Create do
     it_behaves_like 'stock movement invalid', ['please specify user', 'User must exist']
   end
 
-  context 'with stock unit' do
-    context 'without amount' do
-      let(:message) {}
-
-      it_behaves_like 'stock movement invalid', ["Message can't be blank"]
-    end
-
-    context 'with amount' do
-      it 'returns StockMovement#count' do
-        expect(stock_movement).to change { StockMovement.count }.from(0).to(1)
-      end
-
-      it 'returns errors' do
-        expect(stock_movement.errors.full_messages).to be_empty
-      end
+  context 'correct' do
+    it 'returns StockMovement#count' do
+      expect { subject }.to change { StockMovement.count }.from(0).to(1)
     end
   end
 end
