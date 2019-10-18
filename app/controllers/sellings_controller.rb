@@ -2,7 +2,7 @@
 
 class SellingsController < ApplicationController
   before_action :set_selling, only: %i[show edit update destroy]
-  before_action :set_product, only: %i[show]
+  before_action :set_product, only: %i[show create]
 
   def index
     @sellings = Selling.all
