@@ -53,7 +53,7 @@ class SellingsController < ApplicationController
   end
 
   def set_product
-    @selling = set_selling unless @selling
+    @selling ||= set_selling
     @product = @selling.product
   end
 
