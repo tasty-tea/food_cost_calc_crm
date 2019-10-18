@@ -19,7 +19,6 @@ module Sellings
                                    amount: amount,
                                    brake: brake)
       end
-
       Result.new(object: selling, success: true)
     end
 

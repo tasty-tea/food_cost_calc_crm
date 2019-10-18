@@ -10,7 +10,7 @@ module Ingredients
     def call
       return failure_result unless valid?
 
-      coeffitient = conversion_coeffitient(source_measure_units, target_measure_units)
+      coeffitient = config.dig(source_measure_units, target_measure_units)
       return failure_result unless coeffitient
 
       converted_object = StockUnit.new(amount: amount * coeffitient,
@@ -27,18 +27,12 @@ module Ingredients
 
     private
 
-    def conversion_coeffitient(source, target)
-      config[source].try(:[], target)
-    end
-
     def failure_result
-      Result.new(object: StockUnit.new(amount: nil, measure_units: nil), success: false)
+      Result.new(object: StockUnit.new, success: false)
     end
 
     def validate!
-      raise ArgumentError if source_measure_units.nil?
-      raise ArgumentError if target_measure_units.nil?
-      raise ArgumentError if amount.nil?
+      raise ArgumentError if [source_measure_units, target_measure_units, amount].any?(&:nil?)
     end
   end
 end

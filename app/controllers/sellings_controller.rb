@@ -10,11 +10,8 @@ class SellingsController < ApplicationController
 
   def search
     date_selected = Date.parse(params[:date_selected])
-    @sellings = if date_selected
-                  Selling.where_date(date_selected)
-                else
-                  Selling.all
-                end
+    @sellings = Selling.all
+    @sellings = @sellings.where_date(date_selected)
     render 'search'
   end
 

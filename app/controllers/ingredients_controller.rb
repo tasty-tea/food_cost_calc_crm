@@ -41,7 +41,7 @@ class IngredientsController < ApplicationController
   end
 
   def set_ingredient
-    @product.ingredients.find(params[:id])
+    @ingredient = @product.ingredients.find(params[:id])
   end
 
   def ingredient_params
