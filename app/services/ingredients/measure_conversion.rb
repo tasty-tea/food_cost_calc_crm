@@ -19,10 +19,7 @@ module Ingredients
     end
 
     def valid?
-      validate!
-      true
-    rescue StandardError
-      false
+      validate
     end
 
     private
@@ -31,8 +28,8 @@ module Ingredients
       Result.new(object: StockUnit.new, success: false)
     end
 
-    def validate!
-      raise ArgumentError if [source_measure_units, target_measure_units, amount].any?(&:nil?)
+    def validate
+      [source_measure_units, target_measure_units, amount].none?(&:nil?)
     end
   end
 end
