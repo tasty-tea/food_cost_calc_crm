@@ -2,7 +2,7 @@
 
 class SellingsController < ApplicationController
   before_action :set_selling, only: %i[show edit update destroy]
-  before_action :set_product, only: %i[show create]
+  before_action :set_product, only: %i[show]
 
   def index
     @sellings = Selling.all
@@ -10,11 +10,8 @@ class SellingsController < ApplicationController
 
   def search
     date_selected = Date.parse(params[:date_selected])
-    @sellings = if date_selected
-                  Selling.where_date(date_selected)
-                else
-                  Selling.all
-                end
+    @sellings = Selling.all
+    @sellings = @sellings.where_date(date_selected) if date_selected
     render 'search'
   end
 
@@ -27,14 +24,12 @@ class SellingsController < ApplicationController
   def edit; end
 
   def create
-    @selling = Selling.new(selling_params)
-    @selling.user_id ||= current_user.id
-    @product.write_off(selling_params['amount'].to_i)
-
-    if @selling.save
+    result = Sellings::Create.call(current_user, selling_params.to_h)
+    @selling = result.object
+    if result.success?
       redirect_to @selling
     else
-      render :new
+      render :new, alert: t('.failure')
     end
   end
 
@@ -42,7 +37,7 @@ class SellingsController < ApplicationController
     if @selling.update(selling_params)
       redirect_to @selling
     else
-      render :edit
+      render :edit, alert: t('.failure')
     end
   end
 
@@ -58,7 +53,7 @@ class SellingsController < ApplicationController
   end
 
   def set_product
-    @set_selling unless @selling
+    @selling ||= set_selling
     @product = @selling.product
   end
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class StockMovementsController < ApplicationController
-  before_action :set_stock_unit, only: %i[index destroy create]
+  before_action :set_stock_unit, only: %i[index destroy create update]
   before_action :set_stock_movement, only: %i[update destroy]
 
   def index
@@ -9,7 +9,7 @@ class StockMovementsController < ApplicationController
   end
 
   def create
-    @stock_movement = StockMovement.new(stock_movement_params.merge(stock_unit_id: @stock_unit.id))
+    @stock_movement = @stock_unit.stock_movements.build(stock_movement_params)
 
     if @stock_movement.save
       redirect_to request.referer, notice: t('.success')
@@ -41,7 +41,7 @@ class StockMovementsController < ApplicationController
   end
 
   def set_stock_movement
-    @stock_movement = StockMovement.find(params[:id])
+    @stock_movement = @stock_unit.stock_movements.find(params[:id])
   end
 
   def stock_movement_params

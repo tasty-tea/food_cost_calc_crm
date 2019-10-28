@@ -2,38 +2,46 @@
 
 module StockMovements
   class Create < BaseServiceObject
-    param :stock_unit_id
-
+    param :stock_unit
+    option :selling
     option :amount
     option :cost
-    option :measure_units
+    option :measure_units, default: -> { stock_unit&.measure_units }
     option :brake, default: -> { false }
 
     def call
-      validate
-      return self unless valid?
+      return failure_result unless valid?
 
       stock_movement.save!
-      # some logic after saving Post
-      # self.result = stock_movement
-      # self
       Result.new(object: stock_movement, success: true)
     end
 
     private
 
-    def validate
-      errors.add(:base, 'please specify user') unless amount
-      errors.merge_with_models(stock_movement) unless stock_movement.valid?
+    def valid?
+      validate!
+      true
+    rescue StandardError
+      false
     end
 
+    # TODO: automaticly calculate to correct measure
     def stock_movement
-      @stock_movement ||= StockMovement.new(stock_unit_id: stock_unit_id,
-                                            selling_id: selling_id,
+      measure_units = stock_unit&.measure_units
+      @stock_movement ||= StockMovement.new(stock_unit: stock_unit,
+                                            selling: selling,
                                             amount: amount,
                                             cost: cost,
                                             measure_units: measure_units,
                                             brake: brake)
+    end
+
+    def validate!
+      raise StandardError if [stock_unit, selling, amount].any?(&:nil?)
+    end
+
+    def failure_result
+      Result.new(object: StockMovement.new, success: false)
     end
   end
 end

@@ -1,0 +1,25 @@
+defaults: &defaults
+  measure_units_list:
+    kg:
+      g: 1000
+      kg: 1
+    g:
+      kg: 0.001
+      g: 1
+    l:
+      ml: 1000
+      l: 1
+    ml:
+      l: 0.001
+      ml: 1
+    pieces:
+      pieces: 1
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
